@@ -1,0 +1,5 @@
+requests
+asyncio
+azure-eventhub
+azure-identity
+aiohttp
