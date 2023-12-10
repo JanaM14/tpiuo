@@ -27,8 +27,8 @@ jobs:
       steps:
           - name: Azure Login
           - uses: azure/login@v1
-              with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
         - name: Azure Container Apps Build and Deploy
           uses: Azure/container-apps-deploy-action@v2
           with:
