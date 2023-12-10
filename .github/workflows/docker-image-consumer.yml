@@ -3,9 +3,9 @@ name: Docker Image CI -consumer
 on:
   push:
     branches:
-      - "main"
+      - 'main'
     paths:
-      - "**.py"
+      - '**.py'
 
 jobs:
   editconfig:
