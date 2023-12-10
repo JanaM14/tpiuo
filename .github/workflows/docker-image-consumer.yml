@@ -22,7 +22,7 @@ jobs:
         uses: super-linter/super-linter@v5.7.2
 
   azurebuild:
-    needs: [editconfig, linter]
+    needs: [editorconfig, linter]
     runs-on: ubuntu-latest
 
     steps:
