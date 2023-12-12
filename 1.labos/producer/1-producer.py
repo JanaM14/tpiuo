@@ -51,4 +51,4 @@ async def run():
 
 print("prije")
 asyncio.run(run())
-print("poslije")
+print("poslije!")
