@@ -19,24 +19,23 @@ async def on_event(partition_context, event):
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
 
-async def main():
-    
 
+async def main():
     # Create a consumer client for the event hub.
     client = EventHubConsumerClient.from_connection_string(
         EVENT_HUB_CONNECTION_STR,
         consumer_group="$Default",
-        eventhub_name=EVENT_HUB_NAME
-        
+        eventhub_name=EVENT_HUB_NAME,
     )
     async with client:
         # Call the receive method. Read from the beginning of the
         # partition (starting_position: "-1")
         await client.receive(on_event=on_event, starting_position="-1")
 
+
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     print("Loop!")
     # Run the main method.
     loop.run_until_complete(main())
-    print("Run done!!")
+    print("Run done!!!")
