@@ -35,5 +35,5 @@ jobs:
         with:
           containerAppName: consumer-test
           resourceGroup: fervjestina
-          imageToDeploy: 1.labos/consumer
+          imageToDeploy: 1.labos/consumer/1-consumer
           acrName: containervjestina
