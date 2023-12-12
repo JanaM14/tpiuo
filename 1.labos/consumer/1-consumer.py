@@ -26,7 +26,7 @@ async def on_event(partition_context, event):
         file_system=CONTAINER_NAME
     )
 
-    for objava in json_body["data"]["children"]:
+    for objava in json_body:
         dt = datetime.utcfromtimestamp(objava["data"]["created_utc"])
         dir = dt.strftime("%Y/%m/%d/%H/%M")
 
