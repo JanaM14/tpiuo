@@ -35,5 +35,5 @@ jobs:
         with:
           containerAppName: consumer-test
           resourceGroup: fervjestina
-          imageToDeploy: containervjestina.azurecr.io/consumer:v1
           acrName: containervjestina
+          appSourcePath: ${{ github.workspace }}/1.labos

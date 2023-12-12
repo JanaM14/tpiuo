@@ -49,6 +49,6 @@ async def run():
         await producer.send_batch(event_data_batch)
 
 
-print("prije!")
+print("prije")
 asyncio.run(run())
 print("poslije!")
