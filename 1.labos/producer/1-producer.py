@@ -1,6 +1,7 @@
 import asyncio
 import requests
 import requests.auth
+import json
 from time import sleep
 
 from azure.eventhub.aio import EventHubProducerClient
@@ -47,7 +48,7 @@ async def run():
         async with producer:
             event_data_batch = await producer.create_batch()
             for post in res["data"]["children"]:
-                event_data_batch.add(EventData(str(post)))
+                event_data_batch.add(EventData(json.dumps(post)))
             await producer.send_batch(event_data_batch)
         sleep(10)
 

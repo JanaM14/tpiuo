@@ -33,7 +33,7 @@ async def on_event(partition_context, event):
         dir_client = file_system_client.create_directory(dir)
         file_client = dir_client.get_file_client(f"{objava['data']['name']}.json")
 
-        file_client.upload_data(json.dumps(objava["data"]), overwrite=True)
+        file_client.upload_data(str(objava["data"]), overwrite=True)
 
         print(f"Uploaded {objava['data']['title']} to {dir}")
     # Update the checkpoint so that the program doesn't read the events
