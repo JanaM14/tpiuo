@@ -14,7 +14,7 @@ from azure.eventhub.aio import EventHubConsumerClient
 EVENT_HUB_CONNECTION_STR = "Endpoint=sb://vjezbavjestina.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=VQDxmFIqJyd3cyYcKzWx2U3kavp8Xg8fi+AEhKdyYuc="
 EVENT_HUB_NAME = "hubvjestina"
 SAS_TOKEN = "ndtF8WKlwJ3nSsGWwThRAtqY+CsXmUJeV2gRDhdX6Ss1KAiEdaPZpNzVVN1qeaGCk1Mm09OdIcIy+AStpWBlLw=="
-CONTAINER_NAME = "container"
+CONTAINER_NAME = "datalakecontainer"
 
 
 async def on_event(partition_context, event):
