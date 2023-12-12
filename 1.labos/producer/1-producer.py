@@ -52,6 +52,7 @@ async def run():
         sleep(10)
 
     while True:
+        sleep(3600)
         continue
 
 
