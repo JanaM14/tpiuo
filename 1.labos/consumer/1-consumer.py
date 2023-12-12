@@ -18,7 +18,7 @@ CONTAINER_NAME = "datalakecontainer"
 
 
 async def on_event(partition_context, event):
-    json_body = event.body_as_json(encoding="UTF-8")
+    objava = event.body_as_json(encoding="UTF-8")
 
     account_url = f"https://storageoblak.dfs.core.windows.net"
     service_client = DataLakeServiceClient(account_url, credential=SAS_TOKEN)
@@ -26,16 +26,15 @@ async def on_event(partition_context, event):
         file_system=CONTAINER_NAME
     )
 
-    for objava in json_body:
-        dt = datetime.utcfromtimestamp(objava["data"]["created_utc"])
-        dir = dt.strftime("%Y/%m/%d/%H/%M")
+    dt = datetime.utcfromtimestamp(objava["data"]["created_utc"])
+    dir = dt.strftime("%Y/%m/%d/%H/%M")
 
-        dir_client = file_system_client.create_directory(dir)
-        file_client = dir_client.get_file_client(f"{objava['data']['name']}.json")
+    dir_client = file_system_client.create_directory(dir)
+    file_client = dir_client.get_file_client(f"{objava['data']['name']}.json")
 
-        file_client.upload_data(str(objava["data"]), overwrite=True)
+    file_client.upload_data(str(objava["data"]), overwrite=True)
 
-        print(f"Uploaded {objava['data']['title']} to {dir}")
+    print(f"Uploaded {objava['data']['title']} to {dir}")
     # Update the checkpoint so that the program doesn't read the events
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
