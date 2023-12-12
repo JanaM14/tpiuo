@@ -33,7 +33,7 @@ jobs:
       - name: Azure Container Apps Build and Deploy
         uses: Azure/container-apps-deploy-action@v2
         with:
-          containerAppName: consumer-test
+          containerAppName: producer-test
           resourceGroup: fervjestina
           imageToDeploy: containervjestina.azurecr.io/producer:v1
           acrName: containervjestina
