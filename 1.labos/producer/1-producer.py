@@ -1,6 +1,7 @@
 import asyncio
 import requests
 import requests.auth
+from time import sleep
 
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub.exceptions import EventHubError
@@ -33,20 +34,25 @@ async def run():
         "User-Agent": "ChangeMeClient/0.1 by YourUsername",
     }
     response = requests.get("https://oauth.reddit.com/api/v1/me", headers=headers)
+    after = ""
+    for i in range(5):
+        url = f"https://oauth.reddit.com/r/dataengineering/top/?t=all&limit=10&after={after}"
+        response = requests.get(url, headers=headers)
+        res = response.json()
+        after = res["data"]["after"]
+        producer = EventHubProducerClient.from_connection_string(
+            conn_str=CONNECTION_STR, eventhub_name=EVENTHUB_NAME
+        )
 
-    url = "https://oauth.reddit.com/r/dataengineering/top/?t=all&limit=10"
-    response = requests.get(url, headers=headers)
-    res = response.json()
+        async with producer:
+            event_data_batch = await producer.create_batch()
+            for post in res["data"]["children"]:
+                event_data_batch.add(EventData(str(post)))
+            await producer.send_batch(event_data_batch)
+        sleep(10)
 
-    producer = EventHubProducerClient.from_connection_string(
-        conn_str=CONNECTION_STR, eventhub_name=EVENTHUB_NAME
-    )
-
-    async with producer:
-        event_data_batch = await producer.create_batch()
-        for post in res["data"]["children"]:
-            event_data_batch.add(EventData(str(post)))
-        await producer.send_batch(event_data_batch)
+    while True:
+        continue
 
 
 print("prije!")
