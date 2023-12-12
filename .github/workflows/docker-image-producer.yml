@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
     paths:
-      - '**.py'
+      - '1.labos/producer/1-producer.py'
 
 jobs:
   editorconfig:
