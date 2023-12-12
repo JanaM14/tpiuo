@@ -1,20 +1,41 @@
 import asyncio
-
+import os
+import json
+from datetime import datetime
+from azure.storage.filedatalake import (
+    DataLakeServiceClient,
+    DataLakeDirectoryClient,
+    FileSystemClient,
+)
+from azure.identity import DefaultAzureCredential
 from azure.eventhub.aio import EventHubConsumerClient
 
 
 EVENT_HUB_CONNECTION_STR = "Endpoint=sb://vjezbavjestina.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=VQDxmFIqJyd3cyYcKzWx2U3kavp8Xg8fi+AEhKdyYuc="
 EVENT_HUB_NAME = "hubvjestina"
+SAS_TOKEN = "ndtF8WKlwJ3nSsGWwThRAtqY+CsXmUJeV2gRDhdX6Ss1KAiEdaPZpNzVVN1qeaGCk1Mm09OdIcIy+AStpWBlLw=="
+CONTAINER_NAME = "container"
 
 
 async def on_event(partition_context, event):
-    # Print the event data.
-    print(
-        'Received the event: "{}" from the partition with ID: "{}"'.format(
-            event.body_as_str(encoding="UTF-8"), partition_context.partition_id
-        )
+    json_body = json.loads(event.body_as_str(encoding="UTF-8"))
+
+    account_url = f"https://storageoblak.dfs.core.windows.net"
+    service_client = DataLakeServiceClient(account_url, credential=SAS_TOKEN)
+    file_system_client = service_client.get_file_system_client(
+        file_system=CONTAINER_NAME
     )
 
+    for objava in json_body["data"]["children"]:
+        dt = datetime.utcfromtimestamp(objava["data"]["created_utc"])
+        dir = dt.strftime("%Y/%m/%d/%H/%M")
+
+        dir_client = file_system_client.create_directory(dir)
+        file_client = dir_client.get_file_client(f"{objava['data']['name']}.json")
+
+        file_client.upload_data(str(objava["data"]), overwrite=True)
+
+    print(f"Uploaded {objava['data']['title']} to {dir}")
     # Update the checkpoint so that the program doesn't read the events
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
