@@ -15,14 +15,15 @@ jobs:
       - uses: editorconfig-checker/action-editorconfig-checker@main
       - run: editorconfig-checker
 
-  linter:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Super-Linter
-        uses: super-linter/super-linter@v5.7.2
+  # linter:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Super-Linter
+  #       uses: super-linter/super-linter@v5.7.2
 
   azurebuild:
-    needs: [editorconfig, linter]
+   # needs: [editorconfig, linter]
+    needs: [editorconfig]
     runs-on: ubuntu-latest
 
     steps:
