@@ -36,5 +36,5 @@ jobs:
           containerAppName: consumer-test
           resourceGroup: fervjestina
           acrName: containervjestina
-          appSourcePath: 1.labos/consumer
+          appSourcePath: ${{ github.workspace }}/1.labos/consumer
           dockerfilePath: Dockerfile

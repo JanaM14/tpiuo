@@ -36,5 +36,5 @@ jobs:
           containerAppName: producer-test
           resourceGroup: fervjestina
           acrName: containervjestina
-          appSourcePath: 1.labos/producer
+          appSourcePath: ${{ github.workspace }}/1.labos/producer
           dockerfilePath: Dockerfile
