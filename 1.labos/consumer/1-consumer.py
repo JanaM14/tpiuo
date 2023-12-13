@@ -11,14 +11,15 @@ from azure.identity import DefaultAzureCredential
 from azure.eventhub.aio import EventHubConsumerClient
 
 
-EVENT_HUB_CONNECTION_STR = "Endpoint=sb://vjezbavjestina.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=VQDxmFIqJyd3cyYcKzWx2U3kavp8Xg8fi+AEhKdyYuc="
-EVENT_HUB_NAME = "hubvjestina"
+EVENT_HUB_CONNECTION_STR = "Endpoint=sb://newhubs.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ZJmsHJbFBRJAn8dmF6IBgjStBHMT2PLi++AEhDZqBv8="
+EVENT_HUB_NAME = "newhubs"
 SAS_TOKEN = "ndtF8WKlwJ3nSsGWwThRAtqY+CsXmUJeV2gRDhdX6Ss1KAiEdaPZpNzVVN1qeaGCk1Mm09OdIcIy+AStpWBlLw=="
 CONTAINER_NAME = "datalakecontainer"
 
 
 async def on_event(partition_context, event):
-    objava = event.body_as_json(encoding="UTF-8")
+    # objava = event.body_as_json(encoding="UTF-8")
+    objava = json.loads(event.body_as_str(encoding="UTF-8"))
 
     account_url = f"https://storageoblak.dfs.core.windows.net"
     service_client = DataLakeServiceClient(account_url, credential=SAS_TOKEN)
@@ -50,7 +51,7 @@ async def main():
     async with client:
         # Call the receive method. Read from the beginning of the
         # partition (starting_position: "-1")
-        await client.receive(on_event=on_event, starting_position="-1")
+        await client.receive(on_event=on_event, starting_position="@latest")
 
 
 if __name__ == "__main__":

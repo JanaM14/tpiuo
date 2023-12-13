@@ -9,8 +9,8 @@ from azure.eventhub.exceptions import EventHubError
 from azure.eventhub import EventData
 
 
-CONNECTION_STR = "Endpoint=sb://vjezbavjestina.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=VQDxmFIqJyd3cyYcKzWx2U3kavp8Xg8fi+AEhKdyYuc="
-EVENTHUB_NAME = "hubvjestina"
+CONNECTION_STR = "Endpoint=sb://newhubs.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ZJmsHJbFBRJAn8dmF6IBgjStBHMT2PLi++AEhDZqBv8="
+EVENTHUB_NAME = "newhubs"
 
 
 async def run():
@@ -49,6 +49,7 @@ async def run():
             event_data_batch = await producer.create_batch()
             for post in res["data"]["children"]:
                 event_data_batch.add(EventData(json.dumps(post)))
+                print(f"Poslala: {post['data']['title']}")
             await producer.send_batch(event_data_batch)
         sleep(10)
 
@@ -57,6 +58,6 @@ async def run():
         continue
 
 
-print("prije!!")
+print("prije!")
 asyncio.run(run())
 print("poslije!")
