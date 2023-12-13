@@ -12,7 +12,7 @@ from azure.eventhub.aio import EventHubConsumerClient
 
 
 EVENT_HUB_CONNECTION_STR = "Endpoint=sb://newhubs.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ZJmsHJbFBRJAn8dmF6IBgjStBHMT2PLi++AEhDZqBv8="
-EVENT_HUB_NAME = "newhubs"
+EVENT_HUB_NAME = "huboblak"
 SAS_TOKEN = "ndtF8WKlwJ3nSsGWwThRAtqY+CsXmUJeV2gRDhdX6Ss1KAiEdaPZpNzVVN1qeaGCk1Mm09OdIcIy+AStpWBlLw=="
 CONTAINER_NAME = "datalakecontainer"
 

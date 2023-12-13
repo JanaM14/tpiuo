@@ -10,7 +10,7 @@ from azure.eventhub import EventData
 
 
 CONNECTION_STR = "Endpoint=sb://newhubs.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ZJmsHJbFBRJAn8dmF6IBgjStBHMT2PLi++AEhDZqBv8="
-EVENTHUB_NAME = "newhubs"
+EVENTHUB_NAME = "huboblak"
 
 
 async def run():
